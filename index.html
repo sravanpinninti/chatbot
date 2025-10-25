@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise for Revathi ❤</title>
+    <style>
+        /* General Styling for the whole page */
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to bottom right, #ffccd5, #ff6b81); /* Soft pink/red gradient */
+            color: #4a4a4a;
+        }
+
+        /* --- Login Page Styling --- */
+        #login-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 700px;
+        }
+
+        h1 {
+            color: #d63031; /* Bright red for passion */
+            font-size: 2.5em;
+            margin-bottom: 5px;
+            font-family: 'Dancing Script', cursive; /* Use a nice love-themed font */
+        }
+
+        h2 {
+            color: #eb4d4b;
+            font-size: 1.2em;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .image-gallery {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+
+        .image-gallery img {
+            width: 45%;
+            height: auto;
+            border-radius: 15px;
+            border: 5px solid #ffccd5;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 80%;
+            padding: 12px 20px;
+            margin: 10px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #ff6b81; /* Primary button color */
+            color: white;
+            padding: 14px 20px;
+            margin: 20px 0 10px 0;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 80%;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #d63031;
+        }
+
+        #error-message {
+            color: #d63031;
+            margin-top: 15px;
+            font-weight: bold;
+            display: none;
+        }
+
+        /* --- Video Page Styling (Starts hidden) --- */
+        #video-container {
+            display: none;
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        #video-player {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            background-color: black;
+        }
+
+        /* Import Google Font for a lovely look */
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+    </style>
+</head>
+<body>
+
+    <div id="login-container">
+        <h1>My Dearest Revathi</h1>
+        <h2>Enter the secret code to unlock your special birthday message!</h2>
+
+        <div class="image-gallery">
+            <img src="photo1.lnk">
+            <img src="photo2.lnk">
+            
+        </div>
+
+        <form id="login-form">
+            <input type="text" id="user-id" placeholder="Your ID " required>
+            <input type="password" id="user-password" placeholder="Your Secret Password" required>
+            <button type="submit">Unlock Surprise</button>
+        </form>
+
+        <p id="error-message">Access Denied! Check your ID and Password.</p>
+    </div>
+
+    <div id="video-container">
+        <h1 style="color: #d63031; margin-bottom: 20px;">Happy Birthday, chota  Teddy! Watch This...</h1>
+
+        <video id="video-player" controls preload="auto">
+            <source src="birthday.mp4" type="video/mp4">
+            Your browser does not support the video tag. Please update your browser.
+        </video>
+    </div>
+
+    <script>
+        // --- Configuration ---
+        const CORRECT_ID = "revathi";
+        const CORRECT_PASSWORD = "Revathi90";
+        const PROMPT_MESSAGE = `My Dearest Revathi
+Happy Birthday, Revathi. Forget the gifts and the cake. The only thing that matters today is your day enjoy chey & happy ga vundu em jarigina nenu okadini vuna ani marchipoku as friend ga (or) close friend ga, okati aduguta answer istava nanu matram marchipoku please.i really enjoyed a lot while spending time with you i hope nuvu naku ee happiness life long istav ani anukuntunaa, Thank you for being you.`;
+
+        // --- DOM Elements ---
+        const loginForm = document.getElementById('login-form');
+        const userIdInput = document.getElementById('user-id');
+        const userPasswordInput = document.getElementById('user-password');
+        const errorMessage = document.getElementById('error-message');
+        const loginContainer = document.getElementById('login-container');
+        const videoContainer = document.getElementById('video-container');
+        const videoPlayer = document.getElementById('video-player');
+
+        // --- Event Listeners ---
+
+        // 1. Handle Login Attempt
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Stop the form from submitting normally
+
+            const enteredId = userIdInput.value.trim();
+            const enteredPassword = userPasswordInput.value.trim();
+
+            if (enteredId === CORRECT_ID && enteredPassword === CORRECT_PASSWORD) {
+                // SUCCESS: Hide login, show video
+                loginContainer.style.display = 'none';
+                videoContainer.style.display = 'block';
+
+                // Start the video automatically (if browser allows)
+                videoPlayer.play().catch(error => {
+                    console.log("Autoplay failed, user will need to click play.", error);
+                });
+
+            } else {
+                // FAILURE: Show error message
+                errorMessage.style.display = 'block';
+                // Clear inputs for next try
+                userPasswordInput.value = '';
+                userIdInput.value = '';
+            }
+        });
+
+        // 2. Show Prompt Message after Video Ends
+        videoPlayer.addEventListener('ended', function() {
+            alert(PROMPT_MESSAGE);
+        });
+    </script>
+
+</body>
+</html>
